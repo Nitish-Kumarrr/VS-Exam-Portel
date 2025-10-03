@@ -1,0 +1,19 @@
+[
+  {
+    "question": "hello",
+    "answer": "Hi there! How can I help you today?"
+  },
+  {
+    "question": "exam",
+    "answer": "Our platform supports both Online and OMR exams. Would you like details?"
+  },
+  {
+    "question": "pricing",
+    "answer": "You can check our pricing plans on the Pricing page."
+  },
+  {
+    "question": "contact",
+    "answer": "You can contact us at support@vsexams.com."
+  }
+
+]
