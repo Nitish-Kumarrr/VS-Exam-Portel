@@ -4,7 +4,7 @@ import LogoutPopup from "../LogoutPopup";
 import { NavLink} from "react-router-dom";
 import { BiSolidCheckSquare, BiLogOut } from "react-icons/bi";
 import { FaArrowTrendUp, FaChalkboard } from "react-icons/fa6";
-import { IoMdSettings } from "react-icons/io";
+import { IoMdMenu, IoMdSettings } from "react-icons/io";
 
 
 const SideBar = ({children}) => {
@@ -12,6 +12,14 @@ const SideBar = ({children}) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex h-[calc(100vh-56px)] pt-14">
+      <div
+      className="absolute z-10 top-1 left-8 shadow-xl cursor-pointer h-10 w-10 flex items-center justify-center rounded-full bg-white"
+                onClick={() => setIsCollapsed((prev) => !prev)}
+              >
+                <span >
+                  <IoMdMenu size={24} />
+                </span>
+              </div>
           {/* Sidebar */}
           <aside
             className={`bg-white shadow-xl fixed top-14 left-0 transition-all duration-300 h-[calc(100vh-56px)] ${
@@ -40,7 +48,7 @@ const SideBar = ({children}) => {
                 className={({ isActive }) =>
                   `px-4 py-3 flex items-center gap-4 ${
                     isActive ? "bg-gray-200" : "hover:bg-gray-100 text-gray-700"
-                  }`
+                  } ${isCollapsed?"justify-center":"justify-start"}`
                 }
               >
                 <BiSolidCheckSquare /> {!isCollapsed && "Online Exams"}
@@ -51,7 +59,7 @@ const SideBar = ({children}) => {
                 className={({ isActive }) =>
                   `px-4 py-3 flex items-center gap-4 ${
                     isActive ? "bg-gray-200" : "hover:bg-gray-100 text-gray-700"
-                  }`
+                  }  ${isCollapsed?"justify-center":"justify-start"}`
                 }
               >
                 <FaArrowTrendUp /> {!isCollapsed && "Analysis"}
@@ -62,7 +70,7 @@ const SideBar = ({children}) => {
                 className={({ isActive }) =>
                   `px-4 py-3 flex items-center gap-4 ${
                     isActive ? "bg-gray-200" : "hover:bg-gray-100 text-gray-700"
-                  }`
+                  } ${isCollapsed?"justify-center":"justify-start"}`
                 }
               >
                 <FaChalkboard /> {!isCollapsed && "Notice Board"}
@@ -73,7 +81,7 @@ const SideBar = ({children}) => {
                 className={({ isActive }) =>
                   `px-4 py-3 flex items-center gap-4 ${
                     isActive ? "bg-gray-200" : "hover:bg-gray-100 text-gray-700"
-                  }`
+                  } ${isCollapsed?"justify-center":"justify-start"}`
                 }
               >
                 <IoMdSettings /> {!isCollapsed && "Settings"}
@@ -81,7 +89,7 @@ const SideBar = ({children}) => {
 
               <button
                 onClick={() => setOpen(true)}
-                className="px-4 py-3 flex items-center gap-4 hover:bg-gray-100 text-gray-700 w-full"
+                className={`px-4 py-3 flex items-center gap-4 hover:bg-gray-100 text-gray-700 w-full ${isCollapsed?"justify-center":"justify-start"}`}
               >
                 <BiLogOut /> {!isCollapsed && "Logout"}
               </button>

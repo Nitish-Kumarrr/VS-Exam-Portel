@@ -3,67 +3,66 @@ import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({}) => {
+const Login = ({setRole}) => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const  [Users,setUsers] = useState([])
+  const [Users, setUsers] = useState([])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-  fetch("/Data/users.json")
-    .then((res) => res.json())
-    .then((data) => {
-      setUsers(data);
+    fetch("/Data/users.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data);
 
-      localStorage.setItem("users", JSON.stringify(data));
-    })
-    .catch((err) => console.error("Error loading users:", err));
+        localStorage.setItem("users", JSON.stringify(data));
+      })
+      .catch((err) => console.error("Error loading users:", err));
 
-  const savedEmail = localStorage.getItem("email");
-  const savedPassword = localStorage.getItem("password");
-  if (savedEmail && savedPassword) {
-    setFormData({ email: savedEmail, password: savedPassword });
-    setRememberMe(true);
-  }
-}, []);
+    const savedEmail = localStorage.getItem("email");
+    const savedPassword = localStorage.getItem("password");
+    if (savedEmail && savedPassword) {
+      setFormData({ email: savedEmail, password: savedPassword });
+      setRememberMe(true);
+    }
+  }, []);
 
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const allUsers = JSON.parse(localStorage.getItem("users"));
-  const user = allUsers.find(
-    (u) => u.email === formData.email && u.password === formData.password
-  );
+    const allUsers = JSON.parse(localStorage.getItem("users"));
+    const user = allUsers.find(
+      (u) => u.email === formData.email && u.password === formData.password
+    );
 
-  console.log(user, "user");
+    console.log(user, "user");
 
-  if (user) {
-    if (rememberMe) {
-      localStorage.setItem("email", formData.email);
-      localStorage.setItem("password", formData.password);
+    if (user) {
+      if (rememberMe) {
+        localStorage.setItem("email", formData.email);
+        localStorage.setItem("password", formData.password);
+      } else {
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+      }
+
       localStorage.setItem("role", user?.role);
-    } else {
-      localStorage.removeItem("email");
-      localStorage.removeItem("password");
-      localStorage.removeItem("role");
-    }
+      setRole(user?.role)
 
-
-    // Check role (by name or add `role` field in JSON)
-    if (user.role.toLowerCase() === "admin") {
-      navigate("/admin-dashboard");
+      if (user.role.toLowerCase() === "admin") {
+        navigate("/admin/exams");
+      } else {
+        navigate("/online-exams");
+      }
     } else {
-      navigate("/online-exams");
+      alert("❌ Invalid email or password!");
     }
-  } else {
-    alert("❌ Invalid email or password!");
-  }
-};
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-blue-700">
