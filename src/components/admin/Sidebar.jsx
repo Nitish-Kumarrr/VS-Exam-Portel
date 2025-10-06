@@ -13,11 +13,13 @@ import {
   Video,
 } from "lucide-react";
 import logo from "../../assets/logo.jpg";
+import LogoutPopup from "../LogoutPopup";
 
 export default function Sidebar() {
   const location = useLocation();
   const [open, setOpen] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false)
 
   const links = [
     { name: "Exams", path: "/admin/exams", icon: <Home size={20} /> },
@@ -83,14 +85,17 @@ export default function Sidebar() {
           })}
 
           {/* Logout */}
-          <Link
-            to="/logout"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-3 px-4 py-2 mt-auto mx-2 my-2 rounded-lg text-red-600 hover:bg-red-100 hover:text-red-700 transition"
+          <button
+            // to="/logout"
+            onClick={() => {
+              setMobileOpen(false)
+              setShowLogoutPopup(true)
+            }}
+            className="flex items-center gap-3 px-4 py-2 mt-auto mx-2 my-2 rounded-lg text-red-600 hover:bg-red-100 hover:text-red-700 transition cursor-pointer"
           >
             <LogOut size={20} />
             {open && <span>Logout</span>}
-          </Link>
+          </button>
         </nav>
 
         {/* Collapse/Expand Hint */}
@@ -106,6 +111,8 @@ export default function Sidebar() {
           onClick={() => setMobileOpen(false)}
         />
       )}
+
+      {showLogoutPopup && <LogoutPopup open={showLogoutPopup} setOpen={setShowLogoutPopup} />}
     </>
   );
 }
