@@ -65,27 +65,27 @@ export default function CustomizeSite() {
       {/* Upload Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Organization Logo */}
-        <div className="flex flex-col items-center p-6 border rounded-3xl bg-white/80 backdrop-blur-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 border-transparent hover:border-indigo-300 border-2">
+        <div className="flex flex-col items-center p-6  rounded-3xl bg-white/80 backdrop-blur-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 border-transparent hover:border-indigo-300 border-2">
           <h3 className="font-semibold mb-3 text-gray-800 text-lg">Organization Logo</h3>
           <div className="w-44 h-32 border-2 border-dashed rounded-xl flex items-center justify-center mb-4 bg-white/60 shadow-inner hover:border-indigo-400 transition-all duration-300">
             {logo ? <img src={logo} alt="Logo" className="max-h-full max-w-full rounded-lg" /> : <Image size={32} className="text-gray-400" />}
           </div>
-          <input type="file" accept="image/*" onChange={handleLogoUpload} className="cursor-pointer" />
+          <input type="file" accept="image/*" onChange={handleLogoUpload} className="cursor-pointer w-[200px]" />
           <p className="text-xs text-gray-500 mt-2">Preview shows live</p>
         </div>
 
         {/* WebApp Icon */}
-        <div className="flex flex-col items-center p-6 border rounded-3xl bg-white/80 backdrop-blur-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 border-transparent hover:border-purple-300 border-2">
+        <div className="flex flex-col items-center p-6  rounded-3xl bg-white/80 backdrop-blur-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 border-transparent hover:border-purple-300 border-2">
           <h3 className="font-semibold mb-3 text-gray-800 text-lg">WebApp Icon</h3>
           <div className="w-28 h-28 border-2 border-dashed rounded-full flex items-center justify-center mb-4 bg-white/60 shadow-inner hover:border-purple-400 transition-all duration-300">
             {webAppIcon ? <img src={webAppIcon} alt="WebApp Icon" className="w-20 h-20 object-contain rounded-full" /> : <Image size={28} className="text-gray-400" />}
           </div>
-          <input type="file" accept="image/*" onChange={handleIconUpload} className="cursor-pointer" />
+          <input type="file" accept="image/*" onChange={handleIconUpload} className="cursor-pointer w-[200px]" />
           <p className="text-xs text-gray-500 mt-2">Recommended: 512px × 512px</p>
         </div>
 
         {/* Page Color Picker */}
-        <div className="flex flex-col items-center p-6 border rounded-3xl bg-white/80 backdrop-blur-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 border-transparent hover:border-indigo-400 border-2">
+        <div className="flex flex-col items-center p-6  rounded-3xl bg-white/80 backdrop-blur-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-transform duration-300 border-transparent hover:border-indigo-400 border-2">
           <h3 className="font-semibold mb-3 text-gray-800 text-lg">Page Theme Color</h3>
           <div className="flex flex-col items-center">
             <Palette size={32} className="mb-3 text-indigo-500" />
