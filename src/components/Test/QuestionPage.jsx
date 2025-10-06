@@ -269,7 +269,7 @@ const QuestionPage = ({ currentQn, setCurrentQn, activeTab, timeLeft }) => {
         let total = 0;
         questions.forEach((q, idx) => {
             if (responses[idx] === q.answer) {
-                total += 3;
+                total += 1;
             }
         });
         setScore(total);

@@ -7,7 +7,7 @@ const Test = () => {
   const tabs = ["Java"]
   const [currentQn, setCurrentQn] = useState(0);
   const [activeTab, setActiveTab] = useState("Java");
-  const [timeLeft, setTimeLeft] = useState(5*600); 
+  const [timeLeft, setTimeLeft] = useState(10); 
 
   useEffect(() => {
     if (timeLeft <= 0) return; 
