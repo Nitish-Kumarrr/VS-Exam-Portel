@@ -31,15 +31,15 @@ const UserHeader = ({ setOpen ,setIsCollapsed}) => {
   };
   return (
     <header className="h-14 bg-white flex items-center justify-between px-4 shadow-sm fixed top-0 left-0 right-0 z-10">
-            <div className="flex items-center gap-[22px] h-14 overflow-hidden">
-              <div
+            <div className="flex items-center gap-[22px] h-14 overflow-hidden w-[180px] justify-end">
+              {/* <div
                 className="relative flex items-center justify-center h-10 w-10 rounded-full bg-white cursor-pointer shadow-xl"
                 onClick={() => setIsCollapsed((prev) => !prev)}
               >
                 <span className="absolute">
                   <IoMdMenu size={24} />
                 </span>
-              </div>
+              </div> */}
               <img
                 src={VijaySoftwareSolutions}
                 alt="logo"

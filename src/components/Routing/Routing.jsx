@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import PublicHeader from "../Headers/publicHeader";
 import UserHeader from "../Headers/UserHeader";
 import About from "../publicRoutes/About/About";
@@ -14,7 +14,7 @@ import Omr from "../publicRoutes/OMR-Exams/omr";
 import Features from "../publicRoutes/Pricing/Features";
 import Pricing from "../publicRoutes/Pricing/Pricing";
 import Signup from "../publicRoutes/Signup";
-import {   Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import OnlineExams from "../user/OnlineExams";
 import Forgot from "../publicRoutes/Forgot";
 import ProtectedRoute from "../ProtectedRoute";
@@ -28,46 +28,39 @@ import Protections from "../publicRoutes/OnlineExams/Protections";
 import Questions from "../publicRoutes/OnlineExams/Questions";
 import Webcam from "../publicRoutes/OnlineExams/Webcam";
 import Secure from "../publicRoutes/OnlineExams/Secure";
+import Sidebar from "../admin/Sidebar";
+import AdminExams from "../admin/AdminExams";
+import Students from "../admin/Students";
+import AdminSettings from "../admin/AdminSettings";
+import UpgradePlans from "../admin/UpgradePlans";
+import CustomizeSite from "../admin/CustomizeSite";
+import Tickets from "../admin/Tickets";
+import DemoVideo from "../admin/DemoVideo";
 
 export default function Routing() {
-    const location = useLocation();
     const [role, setRole] = useState(localStorage.getItem("role") || "");
-    const prevLocation = useRef(location.pathname);
 
-  const publicRoutes = [
-    "/about",
-    "/contact",
-    "/pricing",
-    "/login",
-    "/signup",
-    "/forgot-password",
-    "/omr-exams"
-  ];
+    const publicRoutes = [
+        "/about",
+        "/contact",
+        "/pricing",
+        "/login",
+        "/signup",
+        "/forgot-password",
+        "/omr-exams"
+    ];
 
-  useEffect(() => {
-    const fromPrivateToPublic =
-      prevLocation.current &&
-      !publicRoutes.includes(prevLocation.current) &&
-      publicRoutes.includes(location.pathname);
 
-    if (fromPrivateToPublic) {
-      localStorage.removeItem("role"); 
-      setRole(""); 
-    }
 
-    prevLocation.current = location.pathname;
-  }, [location]);
-
-  
 
     return (
         <>
-            {role === "User" ? <UserHeader /> : <PublicHeader />}
+            {role === "User" ? <UserHeader /> : !role ? <PublicHeader /> : ""}
 
             <Routes>
                 {/* Public Routes */}
                 <Route
-                    path="about"
+                    path="/about"
                     element={
                         <>
                             <Heroslider />
@@ -155,6 +148,27 @@ export default function Routing() {
                             <SideBar>
                                 <Settings />
                             </SideBar>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin/*"
+                    element={
+                        <ProtectedRoute role={role} allowedRoles={["Admin"]}>
+                            <div className="flex h-screen bg-gray-100">
+                                <Sidebar />
+                                <main className="flex-1 p-6 overflow-y-auto">
+                                    <Routes>
+                                        <Route path="/exams" element={<AdminExams />} />
+                                        <Route path="/students" element={<Students />} />
+                                        <Route path="/settings" element={<AdminSettings />} />
+                                        <Route path="/upgrade-plans" element={<UpgradePlans />} />
+                                        <Route path="/customize-site" element={<CustomizeSite />} />
+                                        <Route path="/tickets" element={<Tickets />} />
+                                        <Route path="/demovideo" element={<DemoVideo />} />
+                                    </Routes>
+                                </main>
+                            </div>
                         </ProtectedRoute>
                     }
                 />
