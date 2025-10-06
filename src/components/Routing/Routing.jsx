@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PublicHeader from "../Headers/publicHeader";
 import UserHeader from "../Headers/UserHeader";
 import About from "../publicRoutes/About/About";
@@ -14,7 +14,7 @@ import Omr from "../publicRoutes/OMR-Exams/omr";
 import Features from "../publicRoutes/Pricing/Features";
 import Pricing from "../publicRoutes/Pricing/Pricing";
 import Signup from "../publicRoutes/Signup";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import OnlineExams from "../user/OnlineExams";
 import Forgot from "../publicRoutes/Forgot";
 import ProtectedRoute from "../ProtectedRoute";
@@ -36,10 +36,12 @@ import UpgradePlans from "../admin/UpgradePlans";
 import CustomizeSite from "../admin/CustomizeSite";
 import Tickets from "../admin/Tickets";
 import DemoVideo from "../admin/DemoVideo";
+import Test from "../Test/Test";
 
 export default function Routing() {
     const [role, setRole] = useState(localStorage.getItem("role") || "");
-
+    const navigate = useNavigate();
+    const location = useLocation();
     const publicRoutes = [
         "/about",
         "/contact",
@@ -50,13 +52,28 @@ export default function Routing() {
         "/omr-exams"
     ];
 
-
+    // useEffect(() => {
+    //     const isPublic = publicRoutes.includes(location.pathname);
+    //     console.log(role,"check")
+    //     console.log(isPublic,"checking")
+    //     if (role && isPublic) {
+    //         localStorage.clear();
+    //         setRole("");
+    //         navigate("/login", { replace: true });
+    //     }
+    // }, [location.pathname, role]);
 
 
     return (
         <>
-            {role === "User" ? <UserHeader /> : !role ? <PublicHeader /> : ""}
-
+            {/* {role === "User" ? <UserHeader /> : !role ? <PublicHeader /> : ""} */}
+            {role === "User" && location.pathname !== "/online-exams/test" ? (
+                <UserHeader />
+            ) : !role ? (
+                <PublicHeader />
+            ) : (
+                ""
+            )}
             <Routes>
                 {/* Public Routes */}
                 <Route
@@ -148,6 +165,14 @@ export default function Routing() {
                             <SideBar>
                                 <Settings />
                             </SideBar>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/online-exams/test"
+                    element={
+                        <ProtectedRoute role={role} allowedRoles={["User"]}>
+                            <Test />
                         </ProtectedRoute>
                     }
                 />
