@@ -53,8 +53,10 @@ const Login = ({setRole}) => {
 
       localStorage.setItem("role", user?.role);
       setRole(user?.role)
-
-      if (user.role.toLowerCase() === "admin") {
+      
+      if (user.role === "superAdmin") {
+        navigate("/super-admin/organisation");
+      } else if (user.role.toLowerCase() === "admin") {
         navigate("/admin/exams");
       } else {
         navigate("/online-exams");
