@@ -1,5 +1,11 @@
 [
   {
+    "name": "Super Admin",
+    "email": "mouni@gmail.com",
+    "password": "Mouni123",
+    "role": "superAdmin"
+  },
+  {
     "id": 1,
     "name": "Admin",
     "email": "admin@gmail.com",
