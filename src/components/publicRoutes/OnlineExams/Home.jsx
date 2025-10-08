@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <section className="bg-blue-600 text-white py-16">
+    <section className="bg-gradient-to-r from-gray-900 to-blue-400 text-white py-16">
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         
         {/* Left Content */}
@@ -21,9 +21,9 @@ export default function Home() {
         {/* Right Image */}
         <div className="flex justify-center">
           <img
-            src="Images/image.jpg" // replace with your actual image
+            src="Images/onExam.png" 
             alt="Online Exam Platform"
-            className="w-full max-w-lg rounded-lg shadow-lg"
+            className="w-full max-w-lg rounded-lg "
           />
         </div>
 

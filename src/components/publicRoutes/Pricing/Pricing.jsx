@@ -53,7 +53,7 @@ export default function Pricing() {
             <button
               className={`px-6 py-2 rounded-full font-medium ${
                 billingCycle === "monthly"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-gray-700 text-white"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
               onClick={() => setBillingCycle("monthly")}
@@ -63,7 +63,7 @@ export default function Pricing() {
             <button
               className={`px-6 py-2 rounded-full font-medium ${
                 billingCycle === "yearly"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-gray-700 text-white"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
               onClick={() => setBillingCycle("yearly")}
@@ -79,7 +79,7 @@ export default function Pricing() {
             <div
               key={index}
               className={`relative p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${
-                plan.highlight ? "bg-blue-600 text-white scale-105" : "bg-white text-gray-800"
+                plan.highlight ? "bg-gray-700 text-white scale-105" : "bg-white text-gray-800"
               }`}
             >
               {/* Best Recommended Badge */}
@@ -92,7 +92,7 @@ export default function Pricing() {
               <h3 className="text-xl font-bold mb-4">{plan.name}</h3>
               <p
                 className={`text-xl font-extrabold mb-6 ${
-                  plan.highlight ? "text-white" : "text-blue-600"
+                  plan.highlight ? "text-white" : "text-gray-900"
                 }`}
               >
                 {billingCycle === "monthly" ? plan.monthly : plan.yearly}
@@ -120,7 +120,7 @@ export default function Pricing() {
                 className={`px-6 py-2 rounded-lg font-semibold ${
                   plan.highlight
                     ? "bg-white text-blue-600 hover:bg-gray-200"
-                    : "bg-blue-600 text-white hover:bg-blue-700"
+                    : "bg-gray-600 text-white hover:bg-gradient-to-r from-gray-900 to-blue-400"
                 }`}
               >
                 Get Started

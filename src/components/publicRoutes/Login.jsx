@@ -67,9 +67,9 @@ const Login = ({setRole}) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-blue-700">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-gray-900 to-blue-400">
       <div className="bg-white p-7 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           Login
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -87,7 +87,7 @@ const Login = ({setRole}) => {
             />
           </div>
 
-          {/* Password with eye toggle */}
+          {/* Password */}
           <div>
             <label className="block text-gray-700 mb-1">Password</label>
             <div className="relative">
@@ -128,7 +128,7 @@ const Login = ({setRole}) => {
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-gray-600 text-white py-2 rounded-lg hover:bg-gradient-to-r from-gray-900 to-blue-400 transition"
           >
             Login
           </button>
@@ -146,3 +146,8 @@ const Login = ({setRole}) => {
 };
 
 export default Login;
+
+
+
+
+

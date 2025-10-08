@@ -14,7 +14,7 @@ const LogoutPopup = ({open, setOpen}) => {
   }, [open]);
   const handleLogout = () =>{
     setOpen(false);
-    localStorage.clear();
+    localStorage.clear(); 
     navigate("/about")
   }
 
