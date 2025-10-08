@@ -47,11 +47,11 @@ export default function Matters() {
       </section>
 
       {/* Bottom call-to-action section */}
-      <section className="bg-blue-600 text-white py-16 text-center">
+      <section className="bg-gradient-to-r from-gray-900 to-blue-400 text-white py-16 text-center">
         <h3 className="text-2xl font-bold mb-4">
           Ready to Conduct OMR Exams Digitally?
         </h3>
-        <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
+        <button className="bg-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
          <Link to="/contact">Contact US</Link>
         </button>
       </section>

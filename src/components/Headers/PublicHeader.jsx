@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const PublicHeader = () => {
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-blue-700 text-white">
+    <div className="bg-gradient-to-r from-gray-900 to-blue-400 text-white">
       {/* Navbar */}
       <nav className="flex justify-between items-center px-10 py-4 bg-transparent">
         <div className="flex items-center space-x-2">
@@ -21,9 +21,6 @@ const PublicHeader = () => {
           <Link to="/omr-exams" className="hover:underline">
             OMR Exams
           </Link>
-          {/* <a href="#" className="hover:underline">
-            Exam Analytics
-          </a> */}
           <Link to="/pricing" className="hover:underline">
             Pricing
           </Link>

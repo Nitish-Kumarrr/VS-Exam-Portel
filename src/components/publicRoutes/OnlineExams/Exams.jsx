@@ -18,8 +18,8 @@ function Exams() {
   ];
 
   return (
-    <section className="bg-blue-500 to-blue-600 py-12 px-6 flex justify-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
+    <section className="bg-gradient-to-r from-gray-900 to-blue-400 py-12 px-6 flex justify-center ">
+      <div className="bg-white shadow-lg rounded-lg p-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full hover:scale-105 transition-transform">
         {features.map((feature, idx) => (
           <div
             key={idx}
@@ -35,4 +35,3 @@ function Exams() {
     </section>
   );
 }export default Exams
-

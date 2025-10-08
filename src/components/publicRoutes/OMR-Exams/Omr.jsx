@@ -6,13 +6,13 @@ function Omr() {
   return (
     <div className="font-sans text-gray-800">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-20">
+      <section className="bg-gradient-to-r from-gray-900 to-blue-400 text-white py-20">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-4">Smart OMR Exam Management</h2>
           <p className="text-lg mb-6">
             Conduct, evaluate, and analyze OMR-based exams digitally with ease.
           </p>
-          <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
+          <button className="bg-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 text-white">
            <Link to= "/login"> Get Started </Link>
           
           </button>

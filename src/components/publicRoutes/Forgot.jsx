@@ -1,12 +1,12 @@
-// src/Pages/Forgot.jsx
+
 import React from "react";
 
-function Forgot() {
+function Contact() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-6 lg:px-8">
       <div className="w-full max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8">
         {/* Heading */}
-        <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">
           Contact Us
         </h2>
         <p className="text-center text-gray-600 mb-10">
@@ -42,7 +42,7 @@ function Forgot() {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+              className="w-full bg-gradient-to-r from-gray-900 to-blue-400 text-white py-3 rounded-lg font-semibold hover:bg-gray-600 transition"
             >
               Send Message
             </button>
@@ -71,4 +71,4 @@ function Forgot() {
   );
 }
 
-export default Forgot;
+export default Contact;
