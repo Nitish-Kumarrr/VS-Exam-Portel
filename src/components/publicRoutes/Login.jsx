@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = ({setRole}) => {
   const navigate = useNavigate()
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "",role:"" });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [Users, setUsers] = useState([])
@@ -13,23 +13,23 @@ const Login = ({setRole}) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    fetch("/Data/users.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
+  // useEffect(() => {
+  //   fetch("/Data/users.json")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUsers(data);
 
-        localStorage.setItem("users", JSON.stringify(data));
-      })
-      .catch((err) => console.error("Error loading users:", err));
+  //       localStorage.setItem("users", JSON.stringify(data));
+  //     })
+  //     .catch((err) => console.error("Error loading users:", err));
 
-    const savedEmail = localStorage.getItem("email");
-    const savedPassword = localStorage.getItem("password");
-    if (savedEmail && savedPassword) {
-      setFormData({ email: savedEmail, password: savedPassword });
-      setRememberMe(true);
-    }
-  }, []);
+  //   const savedEmail = localStorage.getItem("email");
+  //   const savedPassword = localStorage.getItem("password");
+  //   if (savedEmail && savedPassword) {
+  //     setFormData({ email: savedEmail, password: savedPassword });
+  //     setRememberMe(true);
+  //   }
+  // }, []);
 
 
   const handleSubmit = (e) => {
