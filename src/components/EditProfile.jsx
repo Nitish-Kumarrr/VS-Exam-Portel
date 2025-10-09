@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FloatingLabel from './FloatingLabel'
 import { FaPlus } from 'react-icons/fa6'
 import { MdSend } from 'react-icons/md'
 
 const EditProfile = () => {
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState(true);
     const [formData, setFormData] = useState({
         userName: "",
         email: "",
@@ -12,6 +12,22 @@ const EditProfile = () => {
         file: null
     })
     const [errors, setErrors] = useState({});
+    useEffect(() => {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const storedEmail = localStorage.getItem("email");
+
+    if (users.length && storedEmail) {
+      const matchedUser = users.find((u) => u.email === storedEmail);
+
+      if (matchedUser) {
+        setFormData((prev) => ({
+          ...prev,
+          userName: matchedUser.name || "",
+          email: matchedUser.email || "",
+        }));
+      }
+    }
+  }, []);
 
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -23,7 +39,7 @@ const EditProfile = () => {
 
     const handleChange = (field, value) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
-        setErrors((prev) => ({ ...prev, [field]: "" })); // clear error when typing
+        setErrors((prev) => ({ ...prev, [field]: "" })); 
     };
 
     const validate = () => {
@@ -77,7 +93,7 @@ const EditProfile = () => {
                         >
                             {image ? (
                                 <img
-                                    src={image}
+                                    src="/Images/Pic2.jpg"
                                     alt="profile"
                                     className="w-full h-full object-cover"
                                 />

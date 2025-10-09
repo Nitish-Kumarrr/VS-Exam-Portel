@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { PlusCircle, Trash2, Pencil, X, Share2 } from "lucide-react";
 import { toast, Toaster } from "react-hot-toast";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import ShareExam from "./ShareExam";
+import ExamDetails from "./ExamDetails";
+import Questions from "./Questions";
 
 export default function AdminExams() {
   const [exams, setExams] = useState([]);
@@ -24,6 +27,7 @@ export default function AdminExams() {
     questions: [],
     examStart: "",
     examEnd: "",
+    description:""
   });
 
   // Load exams
@@ -54,7 +58,7 @@ export default function AdminExams() {
   };
 
   const handleSaveExam = () => {
-    if (!examForm.title || !examForm.subject || !examForm.duration || !examForm.examStart || !examForm.examEnd) {
+    if (!examForm.title || !examForm.subject || !examForm.duration || !examForm.examStart || !examForm.examEnd || !examForm.description) {
       toast.error("Please fill all required fields");
       return;
     }
@@ -94,6 +98,7 @@ export default function AdminExams() {
       title: "",
       subject: "",
       duration: "",
+      description:"",
       questions: [],
       examStart: "",
       examEnd: "",
@@ -108,6 +113,7 @@ export default function AdminExams() {
       questions: exam.questions,
       examStart: exam.examStart ? exam.examStart.toISOString().slice(0, 16) : "",
       examEnd: exam.examEnd ? exam.examEnd.toISOString().slice(0, 16) : "",
+      description:exam.description
     });
     setEditingExam(exam);
     setShowModal(true);
@@ -133,53 +139,10 @@ export default function AdminExams() {
     setShowShareModal(true);
   };
 
-  const getShareLink = (exam) => `${window.location.origin}/exam/${exam.id}`;
-  const copyLink = () => {
-    navigator.clipboard.writeText(getShareLink(shareExam));
-    toast.success("Link copied to clipboard");
-  };
+  
 
   // Question logic
-  const addQuestion = () => {
-    setExamForm({
-      ...examForm,
-      questions: [...examForm.questions, { text: "", options: ["", ""], correct: 0 }],
-    });
-  };
-  const removeQuestion = (index) => {
-    if (confirm("Delete this question?")) {
-      const questions = [...examForm.questions];
-      questions.splice(index, 1);
-      setExamForm({ ...examForm, questions });
-    }
-  };
-  const addOption = (qIndex) => {
-    const questions = [...examForm.questions];
-    questions[qIndex].options.push("");
-    setExamForm({ ...examForm, questions });
-  };
-  const removeOption = (qIndex, oIndex) => {
-    const questions = [...examForm.questions];
-    if (questions[qIndex].options.length <= 2) return;
-    questions[qIndex].options.splice(oIndex, 1);
-    if (questions[qIndex].correct === oIndex) questions[qIndex].correct = 0;
-    setExamForm({ ...examForm, questions });
-  };
-  const updateQuestionText = (qIndex, value) => {
-    const questions = [...examForm.questions];
-    questions[qIndex].text = value;
-    setExamForm({ ...examForm, questions });
-  };
-  const updateOptionText = (qIndex, oIndex, value) => {
-    const questions = [...examForm.questions];
-    questions[qIndex].options[oIndex] = value;
-    setExamForm({ ...examForm, questions });
-  };
-  const markCorrect = (qIndex, oIndex) => {
-    const questions = [...examForm.questions];
-    questions[qIndex].correct = oIndex;
-    setExamForm({ ...examForm, questions });
-  };
+  
 
   // Filtering & Sorting
   const filteredExams = exams
@@ -210,7 +173,6 @@ export default function AdminExams() {
     <div className="p-6">
       <Toaster />
 
-  {/* Welcome Header */}
   <div className="mb-6 text-center">
     <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent 
                    bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
@@ -311,150 +273,15 @@ export default function AdminExams() {
         ))}
       </div>
 
-      {/* Share Modal */}
-      {showShareModal && shareExam && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-start pt-20 z-50 overflow-auto">
-          <div className="bg-white p-6 rounded w-full max-w-md relative">
-            <X className="absolute top-4 right-4 cursor-pointer" onClick={() => setShowShareModal(false)} />
-            <h3 className="text-xl font-bold mb-4">Share Exam: {shareExam.title}</h3>
-            <input
-              type="text"
-              readOnly
-              className="border p-2 rounded w-full mb-4"
-              value={getShareLink(shareExam)}
-            />
-            <div className="flex gap-2 flex-wrap">
-              <button
-                onClick={copyLink}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-              >
-                Copy Link
-              </button>
-              <button
-                onClick={() => {
-                  window.location.href = `mailto:?subject=${encodeURIComponent(
-                    "Check out this exam"
-                  )}&body=${encodeURIComponent(getShareLink(shareExam))}`;
-                }}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              >
-                Email
-              </button>
-              <a
-                href={`https://wa.me/?text=${encodeURIComponent(getShareLink(shareExam))}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700"
-              >
-                WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      {showShareModal && shareExam && <ShareExam setShowShareModal={setShowShareModal} shareExam={shareExam}/>}
+      
 
-      {/* Modal for Exam Details & Question Editor */}
       {showModal && !showQuestionsFull && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-start pt-10 z-50 overflow-auto">
-          <div className="bg-white p-6 rounded w-full max-w-4xl relative">
-            <X className="absolute top-4 right-4 cursor-pointer" onClick={() => setShowModal(false)} />
-            <h3 className="text-xl font-bold mb-4">{editingExam ? "Edit Exam" : "Create Exam"}</h3>
-            <input
-              type="text"
-              placeholder="Exam Title"
-              className="border p-2 rounded w-full mb-2"
-              value={examForm.title}
-              onChange={(e) => setExamForm({ ...examForm, title: e.target.value })}
-            />
-            <input
-              type="text"
-              placeholder="Subject"
-              className="border p-2 rounded w-full mb-2"
-              value={examForm.subject}
-              onChange={(e) => setExamForm({ ...examForm, subject: e.target.value })}
-            />
-            <input
-              type="text"
-              placeholder="Exam Duration (e.g., 30 min)"
-              className="border p-2 rounded w-full mb-2"
-              value={examForm.duration}
-              onChange={(e) => setExamForm({ ...examForm, duration: e.target.value })}
-            />
-            <label className="block mb-1 font-semibold">Exam Start</label>
-            <input
-              type="datetime-local"
-              className="border p-2 rounded w-full mb-2"
-              value={examForm.examStart}
-              onChange={(e) => setExamForm({ ...examForm, examStart: e.target.value })}
-            />
-            <label className="block mb-1 font-semibold">Exam Expiry</label>
-            <input
-              type="datetime-local"
-              className="border p-2 rounded w-full mb-4"
-              value={examForm.examEnd}
-              onChange={(e) => setExamForm({ ...examForm, examEnd: e.target.value })}
-            />
-            <button
-              onClick={() => setShowQuestionsFull(true)}
-              className="flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-2"
-            >
-              <PlusCircle className="mr-2" /> Add Questions
-            </button>
-            <button
-              onClick={handleSaveExam}
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-            >
-              {editingExam ? "Update Exam" : "Create Exam"}
-            </button>
-          </div>
-        </div>
+       <ExamDetails setShowModal={setShowModal} examForm={examForm} setExamForm={setExamForm} handleSaveExam={handleSaveExam} setShowQuestionsFull={setShowQuestionsFull} editingExam={editingExam}/>
       )}
 
-      {/* Full-screen Question Editor */}
       {showQuestionsFull && (
-        <div className="fixed inset-0 bg-white z-50 overflow-auto p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">Edit Questions</h2>
-            <X className="cursor-pointer" onClick={() => setShowQuestionsFull(false)} />
-          </div>
-
-          {examForm.questions.map((q, qIndex) => (
-            <div key={qIndex} className="border p-4 rounded mb-4">
-              <input
-                type="text"
-                placeholder={`Question ${qIndex + 1}`}
-                className="border p-2 rounded w-full mb-2"
-                value={q.text}
-                onChange={(e) => updateQuestionText(qIndex, e.target.value)}
-              />
-              {q.options.map((opt, oIndex) => (
-                <div key={oIndex} className="flex gap-2 mb-2">
-                  <input
-                    type="text"
-                    placeholder={`Option ${oIndex + 1}`}
-                    className="border p-2 rounded w-full"
-                    value={opt}
-                    onChange={(e) => updateOptionText(qIndex, oIndex, e.target.value)}
-                  />
-                  <button onClick={() => removeOption(qIndex, oIndex)} className="text-red-600">X</button>
-                  <button
-                    onClick={() => markCorrect(qIndex, oIndex)}
-                    className={`px-2 rounded ${q.correct === oIndex ? "bg-green-500 text-white" : "bg-gray-200"}`}
-                  >
-                    Correct
-                  </button>
-                </div>
-              ))}
-              <button onClick={() => addOption(qIndex)} className="bg-blue-600 text-white px-4 py-2 rounded">Add Option</button>
-              <button onClick={() => removeQuestion(qIndex)} className="bg-red-600 text-white px-4 py-2 rounded ml-2">Delete Question</button>
-            </div>
-          ))}
-
-          <button onClick={addQuestion} className="bg-green-600 text-white px-4 py-2 rounded">Add Question</button>
-          <div className="mt-4">
-            <button onClick={() => setShowQuestionsFull(false)} className="bg-gray-600 text-white px-4 py-2 rounded">Done</button>
-          </div>
-        </div>
+        <Questions setShowQuestionsFull={setShowQuestionsFull} examForm={examForm} setExamForm={setExamForm} />
       )}
     </div>
   );

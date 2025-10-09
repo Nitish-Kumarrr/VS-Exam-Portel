@@ -12,7 +12,7 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "superAdmin",
+    role: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -80,6 +80,7 @@ const Signup = () => {
             required
           >
             <option value="">Select Role</option>
+            <option value="superAdmin">Super Admin</option>
             <option value="Admin">Admin</option>
             <option value="User">User</option>
           </select>
