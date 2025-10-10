@@ -13,24 +13,6 @@ const Login = ({setRole}) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  // useEffect(() => {
-  //   fetch("/Data/users.json")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUsers(data);
-
-  //       localStorage.setItem("users", JSON.stringify(data));
-  //     })
-  //     .catch((err) => console.error("Error loading users:", err));
-
-  //   const savedEmail = localStorage.getItem("email");
-  //   const savedPassword = localStorage.getItem("password");
-  //   if (savedEmail && savedPassword) {
-  //     setFormData({ email: savedEmail, password: savedPassword });
-  //     setRememberMe(true);
-  //   }
-  // }, []);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();

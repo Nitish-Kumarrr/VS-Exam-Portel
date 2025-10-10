@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FloatingLabel from './FloatingLabel'
 import { MdSend } from 'react-icons/md'
 
@@ -8,6 +8,22 @@ const ChangePassword = () => {
         newPassword: "",
         confirmPassword: ""
       })
+    useEffect(() => {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const storedEmail = localStorage.getItem("email");
+    
+        if (users.length && storedEmail) {
+          const matchedUser = users.find((u) => u.email === storedEmail);
+    
+          if (matchedUser) {
+            setFormData((prev) => ({
+              ...prev,
+              userName: matchedUser.name || "",
+            }));
+          }
+        }
+      }, []);
+    
     const [errors, setErrors] = useState({})
       const validate = () => {
     let newErrors = {};
