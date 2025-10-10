@@ -1,5 +1,6 @@
 import { Trash2 ,PieChart as PieIcon,} from 'lucide-react';
 import React, { useState } from 'react'
+import { HiOutlineDotsVertical } from 'react-icons/hi';
 
 const StudentsList = ({setDeleteTarget,students,setAnalysis,searchName,searchId,searchTag,currentPage,setCurrentPage}) => {
     
@@ -23,8 +24,9 @@ const StudentsList = ({setDeleteTarget,students,setAnalysis,searchName,searchId,
           paginated.map((student) => (
             <div
               key={student.id}
-              className="p-5 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              className="p-5 relative bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
+              <span className="absolute right-[10px] top-[10px]"><HiOutlineDotsVertical /></span>
               <div className="flex items-center gap-4 mb-3">
                 <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-lg shadow">
                   {student.name.charAt(0)}
